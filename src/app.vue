@@ -13,3 +13,8 @@ export default {
   }
 };
 </script>
+
+<style lang="stylus" scoped>
+#app
+  color: red
+</style>

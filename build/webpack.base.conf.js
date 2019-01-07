@@ -3,7 +3,7 @@
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const Webpackbar = require('webpackbar');
 
-const { resolve } = require('./utils');
+const { resolve, cssLoader } = require('./utils');
 const { dir } = require('../config');
 
 module.exports = {
@@ -28,6 +28,14 @@ module.exports = {
       {
         test: /\.vue$/,
         loader: 'vue-loader'
+      },
+      {
+        test: /\.css$/,
+        use: cssLoader()
+      },
+      {
+        test: /\.styl(us)?$/,
+        use: cssLoader('stylus')
       }
     ]
   },
