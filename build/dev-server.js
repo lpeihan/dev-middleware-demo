@@ -7,12 +7,14 @@ const opn = require('opn');
 
 const webpackDevConf = require('./webpack.dev.conf');
 const { resolve } = require('./utils');
+const config = require('../config');
+
+const { dir } = config;
 const {
   port,
   autoOpenBrowser,
   proxy
-} = require('../config').dev;
-const { dir } = require('../config');
+} = config.dev;
 
 const app = express();
 const compiler = webpack(webpackDevConf);
@@ -43,6 +45,7 @@ Object.keys(proxy).forEach(key => {
 });
 
 app
+  .use('/mock', require('../mock'))
   .use(require('connect-history-api-fallback')({ // handle fallback for HTML5 history API
     index: '/index.html',
     rewrites: []
