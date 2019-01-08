@@ -3,7 +3,7 @@
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const Webpackbar = require('webpackbar');
 
-const { resolve, cssLoader } = require('./utils');
+const { resolve, cssLoader, assetsPath } = require('./utils');
 const { dir } = require('../config');
 
 module.exports = {
@@ -13,7 +13,7 @@ module.exports = {
   },
   output: {
     path: resolve(dir.dist),
-    filename: '[name].js',
+    filename: assetsPath('js/[name].js'),
     publicPath: '/'
   },
   resolve: {
