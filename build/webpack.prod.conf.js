@@ -5,9 +5,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const webpack = require('webpack');
 
 const webpackBaseConf = require('./webpack.base.conf');
 const { resolve, assetsPath } = require('./utils');
+const { prodEnv } = require('../config/prod.env');
 const packageJson = require('../package.json');
 
 const webpackProdConf = merge(webpackBaseConf, {
@@ -18,6 +20,10 @@ const webpackProdConf = merge(webpackBaseConf, {
   },
   devtool: 'source-map',
   plugins: [
+    new webpack.DefinePlugin({
+      'process.env': prodEnv
+    }),
+
     new HtmlWebpackPlugin({
       title: packageJson.name,
       filename: 'index.html',
