@@ -28,7 +28,7 @@ exports.cssLoader = function(loader) {
       loader: `${loader}-loader`
     });
 
-    loaders.push({
+    loader === 'stylus' && loaders.push({
       loader: 'style-resources-loader',
       options: {
         patterns: [

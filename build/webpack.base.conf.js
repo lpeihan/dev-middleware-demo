@@ -45,6 +45,19 @@ module.exports = {
         }
       },
       {
+        test: /\.svg$/,
+        use: [
+          'svg-sprite-loader',
+          {
+            loader: 'svgo-loader',
+            options: {
+              plugins: require('./svgo-config.json')
+            }
+          }
+        ],
+        include: [resolve(`${dir.frontend}/assets/icons`)]
+      },
+      {
         test: /\.css$/,
         use: cssLoader()
       },
