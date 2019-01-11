@@ -10,6 +10,7 @@ const address = require('address');
 const webpackBaseConf = require('./webpack.base.conf');
 const { resolve } = require('./utils');
 const { port } = require('../config').dev;
+const packageJson = require('../package.json');
 
 Object.keys(webpackBaseConf.entry).forEach((name) => {
   webpackBaseConf.entry[name] = ['webpack-hot-middleware/client?noInfo=true'].concat(
@@ -22,6 +23,7 @@ module.exports = merge(webpackBaseConf, {
   devtool: 'source-map',
   plugins: [
     new HtmlWebpackPlugin({
+      title: packageJson.name,
       filename: 'index.html',
       template: `${resolve('public/index.html')}`,
       inject: true
