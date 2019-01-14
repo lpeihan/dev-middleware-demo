@@ -10,6 +10,10 @@ module.exports = {
     }
   },
 
+  build: {
+    gzip: true
+  },
+
   dir: {
     frontend: 'src',
     backend: 'lib',

@@ -8,9 +8,9 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const webpack = require('webpack');
 
 const webpackBaseConf = require('./webpack.base.conf');
-const { resolve, assetsPath } = require('./utils');
-const { prodEnv } = require('../config/prod.env');
 const packageJson = require('../package.json');
+const { resolve, assetsPath } = require('./utils');
+const { gzip } = require('../config').build;
 
 const webpackProdConf = merge(webpackBaseConf, {
   mode: 'production',
@@ -21,7 +21,7 @@ const webpackProdConf = merge(webpackBaseConf, {
   devtool: 'source-map',
   plugins: [
     new webpack.DefinePlugin({
-      'process.env': prodEnv
+      'process.env': require('../config/prod.env')
     }),
 
     new HtmlWebpackPlugin({
@@ -85,6 +85,21 @@ const webpackProdConf = merge(webpackBaseConf, {
     ]
   }
 });
+
+if (gzip) {
+  const CompressionWebpackPlugin = require('compression-webpack-plugin');
+
+  webpackProdConf.plugins.push(
+    new CompressionWebpackPlugin({
+      cache: true,
+      filename: '[path]',
+      algorithm: 'gzip',
+      test: /\.(js|css)$/,
+      threshold: 0,
+      minRatio: 0.8
+    })
+  );
+}
 
 if (process.env.npm_config_argv.includes('--report')) {
   const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')

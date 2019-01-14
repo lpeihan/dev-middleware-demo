@@ -10,7 +10,6 @@ const address = require('address');
 const webpackBaseConf = require('./webpack.base.conf');
 const { resolve } = require('./utils');
 const { port } = require('../config').dev;
-const { devEnv } = require('../config/dev.env');
 const packageJson = require('../package.json');
 
 Object.keys(webpackBaseConf.entry).forEach((name) => {
@@ -24,7 +23,7 @@ module.exports = merge(webpackBaseConf, {
   devtool: 'source-map',
   plugins: [
     new webpack.DefinePlugin({
-      'process.env': devEnv
+      'process.env': require('../config/dev.env')
     }),
     new HtmlWebpackPlugin({
       title: packageJson.name,
