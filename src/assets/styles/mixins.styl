@@ -8,3 +8,11 @@ support-for-ie = false
 vendor-prefixes = official
 
 @import '~nib/index'
+@import './border.styl'
+
+// bg-image
+bg-image($url, $ext = '.png')
+  background-image: url($url + '@2x' + $ext)
+
+  @media (min-resolution: 3dppx)
+    background-image: url($url + '@3x' + $ext)

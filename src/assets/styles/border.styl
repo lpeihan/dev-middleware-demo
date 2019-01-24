@@ -1,0 +1,87 @@
+// border-1px
+border-1px($color = $color-border, $radius = 2px, $style = solid)
+  position: relative
+
+  &::after
+    content: ''
+    absolute: left top
+    display: block
+    size: 100%
+    border: 1PX $style $color
+    box-sizing: border-box
+    border-radius: $radius
+    transform-origin: 0 0
+
+    @media (min-resolution: 2dppx)
+      size: 200%
+      border-radius: $radius * 2
+      transform: scale(0.5)
+
+    @media (min-resolution: 3dppx)
+      size: 300%
+      border-radius: $radius * 3
+      transform: scale(0.333)
+
+// border-bottom-1px
+border-bottom-1px($color = $color-border, $left = 0, $right = 0)
+  position: relative
+
+  &::after
+    content: ''
+    absolute: left $left right $right bottom 0
+    height: 1PX
+    background: $color
+
+    @media (min-resolution: 2dppx)
+      transform: scaleY(0.5)
+
+    @media (min-resolution: 3dppx)
+      transform: scaleY(0.333)
+
+// border-top-1px
+border-top-1px($color = $color-border, $left = 0, $right = 0)
+  position: relative
+
+  &::after
+    content: ''
+    absolute: left $left right $right top 0
+    height: 1PX
+    background: $color
+
+    @media (min-resolution: 2dppx)
+      transform: scaleY(0.5)
+
+    @media (min-resolution: 3dppx)
+      transform: scaleY(0.333)
+
+// border-left-1px
+border-left-1px($color = $color-border, $top = 0, $bottom = 0)
+  position: relative
+
+  &::after
+    content: ''
+    absolute: top $top bottom $bottom left 0
+    width: 1PX
+    background: $color
+
+    @media (min-resolution: 2dppx)
+      transform: scaleX(0.5)
+
+    @media (min-resolution: 3dppx)
+      transform: scaleX(0.333)
+
+// border-right-1px
+border-right-1px($color = $color-border, $top = 0, $bottom = 0)
+  position: relative
+
+  &::after
+    content: ''
+    absolute: top $top bottom $bottom right 0
+    width: 1PX
+    background: $color
+
+    @media (min-resolution: 2dppx)
+      transform: scaleX(0.5)
+
+    @media (min-resolution: 3dppx)
+      transform: scaleX(0.333)
