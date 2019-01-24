@@ -1,5 +1,5 @@
 <template>
-  <svg class="icon" :class="'icon-' + name">
+  <svg class="icon" :class="'icon-' + name" @click="$emit('click', $event)">
     <use :xlink:href="'#' + name"></use>
   </svg>
 </template>
@@ -28,5 +28,5 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import '~@/assets/styles/icon.styl'
+@import '~@/assets/styles/icon'
 </style>

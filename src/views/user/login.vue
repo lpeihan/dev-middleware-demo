@@ -1,6 +1,6 @@
 <template>
   <div class="login">
-    <icon name="back"></icon>
+    <icon name="back" @click="back()"></icon>
     {{name}}
   </div>
 </template>
@@ -11,11 +11,17 @@ import { mapGetters } from 'vuex';
 export default {
   computed: {
     ...mapGetters('user', ['name'])
+  },
+  methods: {
+    back() {
+      this.$router.go(-1);
+    }
   }
 };
 </script>
 
 <style lang="stylus" scoped>
->>> .icon-back
-  color: red
+.login
+  .icon-back
+    color: red
 </style>
