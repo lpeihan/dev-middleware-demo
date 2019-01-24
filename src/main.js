@@ -1,9 +1,15 @@
 import Vue from 'vue';
-import App from './app';
-import router from './router';
+import App from '@/app';
+import router from '@/router';
+import store from '@/store';
+import Icon from '@/components/icon';
+
+Vue.config.productionTip = false;
+Vue.use(Icon);
 
 new Vue({
   router,
+  store,
   render: h => h(App)
 }).$mount('#app');
 
