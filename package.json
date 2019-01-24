@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "cross-env NODE_ENV=production node build/build.js",
+    "start": "npm run dev",
     "dev": "cross-env NODE_ENV=development node build/dev-server.js",
     "lint": "eslint --ext .js --ext .vue src/ build/",
     "lint-fix": "eslint --fix --ext .js --ext .vue src/ build/"
@@ -14,6 +15,7 @@
   "dependencies": {
     "@babel/runtime": "^7.2.0",
     "@babel/runtime-corejs2": "^7.2.0",
+    "amfe-flexible": "^2.2.1",
     "axios": "^0.18.0",
     "vue": "^2.5.21",
     "vue-router": "^3.0.2",
@@ -55,6 +57,7 @@
     "opn": "^5.4.0",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
     "postcss-loader": "^3.0.0",
+    "postcss-pxtorem": "^4.0.1",
     "rimraf": "^2.6.3",
     "style-resources-loader": "^1.2.1",
     "stylus": "^0.54.5",

@@ -1,4 +1,6 @@
 import Vue from 'vue';
+
+import 'amfe-flexible';
 import App from '@/app';
 import router from '@/router';
 import store from '@/store';
