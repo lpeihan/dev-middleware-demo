@@ -1,6 +1,6 @@
 module.exports = {
   dev: {
-    port: 8300,
+    port: 8301,
     autoOpenBrowser: true,
     proxy: {
       '/api': {
@@ -15,8 +15,8 @@ module.exports = {
   },
 
   dir: {
-    frontend: 'src',
-    backend: 'lib',
+    src: 'src',
+    server: 'server',
     public: 'public',
     dist: 'dist'
   }

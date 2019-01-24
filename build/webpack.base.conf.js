@@ -9,7 +9,7 @@ const { dir } = require('../config');
 module.exports = {
   context: resolve(),
   entry: {
-    app: [`./${dir.frontend}/main.js`]
+    app: [`./${dir.src}/main.js`]
   },
   output: {
     path: resolve(dir.dist),
@@ -20,8 +20,9 @@ module.exports = {
     extensions: ['.js', '.vue', '.json'],
     alias: {
       vue$: 'vue/dist/vue.esm.js',
-      '@': resolve(dir.frontend),
-      'style': resolve(`${dir.frontend}/assets/styles`)
+      '@': resolve(dir.src),
+      'styles': resolve(`${dir.src}/assets/styles`),
+      'imgs': resolve(`${dir.src}/assets/imgs`)
     }
   },
   module: {
@@ -56,7 +57,7 @@ module.exports = {
             }
           }
         ],
-        include: [resolve(`${dir.frontend}/assets/icons`)]
+        include: [resolve(`${dir.src}/assets/icons`)]
       },
       {
         test: /\.css$/,
@@ -73,7 +74,7 @@ module.exports = {
           limit: 10000,
           name: assetsPath('imgs/[name].[hash:7].[ext]')
         },
-        include: [resolve(`${dir.frontend}/assets/imgs`)]
+        include: [resolve(`${dir.src}/assets/imgs`)]
       },
       {
         test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,

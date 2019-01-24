@@ -1,28 +1,24 @@
 <template>
   <div id="app">
-    <div class="btn" @click="click()">click</div>
-
-    <transition>
-      <div class="dot" v-if="show"></div>
+    <transition :name="transitionName">
+      <router-view class="child-view"></router-view>
     </transition>
   </div>
 </template>
 
 <script>
-import { getExample } from '@/api/example';
-
 export default {
   data() {
     return {
-      show: false
+      transitionName: 'slider-left'
     };
   },
-  created() {
-    getExample();
-  },
-  methods: {
-    click() {
-      this.show = !this.show;
+  watch: {
+    $route(to, from) {
+      const toDepth = to.path.split('/').filter(Boolean).length;
+      const fromDepth = from.path.split('/').filter(Boolean).length;
+      this.transitionName =
+        toDepth < fromDepth ? 'slider-right' : 'slider-left';
     }
   }
 };
@@ -30,20 +26,18 @@ export default {
 
 <style lang="stylus" scoped>
 #app
-  color: red
+  font-size: $font-size-base
 
-  .dot
-    fixed: bottom 10px right 10px
-    size: 20px
-    background: blue
-    border-radius: 50%
+  .child-view
+    fixed: top left right
+    transition: all 0.3s cubic-bezier(0.55, 0, 0.1, 1)
 
-    &.v
-      &-enter-active
-      &-leave-active
-        transition: all 0.4s linear
+    &.slider
+      &-left-enter
+      &-right-leave-to
+        transform: translate3d(100%, 0, 0)
 
-      &-enter
-      &-leave-to
-        transform: translate3d(-300px, -600px, 0)
+      &-left-leave-to
+      &-right-enter
+        transform: translate3d(-100%, 0, 0)
 </style>

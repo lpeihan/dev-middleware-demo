@@ -9,6 +9,8 @@ module.exports = {
         regenerator: true,
         useESModules: false
       }
-    ]
+    ],
+    require('@babel/plugin-syntax-dynamic-import'),
+    'transform-vue-jsx'
   ]
 };
