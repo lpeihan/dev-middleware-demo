@@ -70,7 +70,7 @@ const webpackProdConf = merge(webpackBaseConf, {
         cache: true,
         exclude: /\.min\.js$/, // 过滤掉以".min.js"结尾的文件，我们认为这个后缀本身就是已经压缩好的代码
         parallel: true, // 开启并行压缩
-        extractComments: true, // 移除注释
+        extractComments: false, // 不生成 license
         sourceMap: true, // set to true if you want JS source maps
         uglifyOptions: {
           compress: {
