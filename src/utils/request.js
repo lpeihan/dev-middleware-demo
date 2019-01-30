@@ -32,6 +32,12 @@ request.interceptors.response.use(
   },
   err => {
     // err.config._loading
+    const { code, message } = err;
+
+    // 请求超时处理
+    if (code === 'ECONNABORTED' && message.indexOf('timeout') > -1) {
+      // todo
+    }
 
     return Promise.reject(err);
   }
