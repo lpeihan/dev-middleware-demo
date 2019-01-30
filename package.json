@@ -15,7 +15,6 @@
   "dependencies": {
     "@babel/runtime": "^7.2.0",
     "@babel/runtime-corejs2": "^7.2.0",
-    "amfe-flexible": "^2.2.1",
     "axios": "^0.18.0",
     "vue": "^2.5.21",
     "vue-router": "^3.0.2",
