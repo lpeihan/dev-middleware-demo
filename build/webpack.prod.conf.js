@@ -50,7 +50,7 @@ const webpackProdConf = merge(webpackBaseConf, {
         discardComments: {
           removeAll: true
         },
-        map: config.map
+        map: config.sourceMap
       },
       canPrint: true
     })
@@ -72,7 +72,7 @@ const webpackProdConf = merge(webpackBaseConf, {
         exclude: /\.min\.js$/, // 过滤掉以".min.js"结尾的文件，我们认为这个后缀本身就是已经压缩好的代码
         parallel: true, // 开启并行压缩
         extractComments: false, // 不生成 license
-        sourceMap: config.map, // set to true if you want JS source maps
+        sourceMap: config.sourceMap, // set to true if you want JS source maps
         uglifyOptions: {
           compress: {
             unused: true,

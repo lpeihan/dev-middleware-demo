@@ -2,7 +2,7 @@ module.exports = {
   dev: {
     port: 8301,
     autoOpenBrowser: true,
-    map: false,
+    sourceMap: false,
     proxy: {
       '/api': {
         target: 'http://47.98.144.117:3000/',
