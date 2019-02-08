@@ -76,7 +76,7 @@ const webpackProdConf = merge(webpackBaseConf, {
         uglifyOptions: {
           compress: {
             unused: true,
-            drop_console: true
+            drop_console: false // 过滤 console
           },
           output: {
             comments: false // 过滤注释

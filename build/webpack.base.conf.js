@@ -96,6 +96,6 @@ module.exports = {
   plugins: [
     new Webpackbar(),
     new VueLoaderPlugin(),
-    new HardSourceWebpackPlugin()
+    new HardSourceWebpackPlugin() // 加快第二次打包速度
   ]
 };
