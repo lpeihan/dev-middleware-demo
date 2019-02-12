@@ -16,3 +16,14 @@ bg-image($url, $ext = '.png')
 
   @media (min-resolution: 3dppx)
     background-image: url($url + '@3x' + $ext)
+
+btn-active()
+  position: relative
+  &::before
+    content: ''
+    absolute: top left right bottom
+    background: $black
+    opacity: 0 
+
+  &:active::before
+    opacity: 0.1
