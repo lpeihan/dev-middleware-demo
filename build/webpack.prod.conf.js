@@ -6,6 +6,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const webpack = require('webpack');
+const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin');
 
 const webpackBaseConf = require('./webpack.base.conf');
 const packageJson = require('../package.json');
@@ -15,7 +16,7 @@ const config = require('../config').build;
 const webpackProdConf = merge(webpackBaseConf, {
   mode: 'production',
   output: {
-    filename: assetsPath('js/[name].[chunkhash].js'),
+    filename: assetsPath('js/[name].[chunkhash:7].js'),
     publicPath: '/'
   },
   devtool: 'source-map',
@@ -39,7 +40,7 @@ const webpackProdConf = merge(webpackBaseConf, {
     }),
 
     new MiniCssExtractPlugin({
-      filename: assetsPath('css/[name].[contenthash].css')
+      filename: assetsPath('css/[name].[contenthash:7].css')
     }),
 
     new OptimizeCssAssetsPlugin({
@@ -54,7 +55,8 @@ const webpackProdConf = merge(webpackBaseConf, {
         map: config.sourceMap
       },
       canPrint: true
-    })
+    }),
+    new InlineManifestWebpackPlugin('runtime')
 
   ],
 
