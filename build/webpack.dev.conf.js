@@ -28,7 +28,8 @@ module.exports = merge(webpackBaseConf, {
     new HtmlWebpackPlugin({
       title: packageJson.name,
       filename: 'index.html',
-      template: `${resolve('public/index.html')}`,
+      template: resolve('public/index.html'),
+      favicon: resolve('public/favicon.ico'),
       inject: true
     }),
 
