@@ -26,8 +26,6 @@ export default {
 
 <style lang="stylus" scoped>
 #app
-  font-size: $font-size-base
-
   .child-view
     fixed: top left right
     transition: all 0.3s cubic-bezier(0.55, 0, 0.1, 1)

@@ -5,6 +5,7 @@ import App from '@/app';
 import router from '@/router';
 import store from '@/store';
 import Icon from '@/components/icon';
+import '@/assets/styles/index.styl';
 
 Vue.config.productionTip = false;
 Vue.use(Icon);
