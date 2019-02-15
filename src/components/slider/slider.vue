@@ -4,7 +4,8 @@
       class="slider-wrapper"
       ref="wrapper"
       :style="{
-        'transform': `translate${this.vertical ? 'Y' : 'X'}(${translateX - ((index - 1) * clientWidth)}px)`,
+        'white-space': `${vertical ? 'wrap' : 'nowrap'}`,
+        'transform': `translate${vertical ? 'Y' : 'X'}(${translate - ((index - 1) * size)}px)`,
         'transition': `transform ${slidering ? 0 : transition}ms`
       }"
       @touchstart.stop="handleTouchstart"
@@ -20,7 +21,7 @@
 <script>
 export default {
   props: {
-    interval: {
+    duration: {
       type: Number,
       default: 3000
     },
@@ -34,7 +35,11 @@ export default {
     },
     vertical: {
       type: Boolean,
-      default: false
+      default: true
+    },
+    autoplay: {
+      type: Boolean,
+      default: true
     }
   },
   data() {
@@ -46,11 +51,11 @@ export default {
       endY: 0,
       deltaX: 0,
       deltaY: 0,
-      translateX: 0,
-      translateY: 0,
+      translate: 0,
       clientWidth: 0,
       clientHeight: 0,
-      slidering: false
+      slidering: false,
+      timer: null
     };
   },
   computed: {
@@ -88,14 +93,24 @@ export default {
       this.index = 2;
       this.initLoop();
     }
+
+    this.autoPlay();
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.resizeWidth);
   },
   methods: {
+    clear() {
+      clearInterval(this.timer);
+    },
+    autoPlay() {
+      this.timer = setInterval(() => {
+        this.next();
+      }, this.duration);
+    },
     resizeWidth() {
       this.clientWidth = this.$el.clientWidth;
       this.clientHeight = this.$el.clientHeight;
-    },
-    getAngle(startX, startY, endX, endY) {
-      return 360 * Math.atan((endY - startY) / (endX - startX)) / (2 * Math.PI);
     },
     initLoop() {
       const el = this.$refs.wrapper;
@@ -127,40 +142,38 @@ export default {
       this.startY = 0;
       this.endX = 0;
       this.endY = 0;
-      this.translateX = 0;
-      this.translateY = 0;
       this.deltaX = 0;
       this.deltaY = 0;
+      this.translate = 0;
     },
     noSlider() {
       return (
-        (this.deltaX < 0 && this.index >= this.length) || (this.deltaX > 0 && this.index === 1));
+        (this.delta < 0 && this.index >= this.length) || (this.delta > 0 && this.index === 1));
     },
     handleTouchstart(e) {
       this.slidering = true;
       this.startX = e.touches[0].pageX;
       this.startY = e.touches[0].pageY;
 
+      this.clear();
       this.correctIndex();
     },
     handleTouchmove(e) {
       this.endX = e.touches[0].pageX;
       this.endY = e.touches[0].pageY;
 
-      const deltaX = this.deltaX = this.endX - this.startX;
-      const angle = this.getAngle(this.startX, this.startY, this.endX, this.endY);
+      this.deltaX = this.endX - this.startX;
+      this.deltaY = this.endY - this.startY;
 
       if (this.loop === false && this.noSlider()) {
         return;
       }
 
-      if (Math.abs(deltaX) > 6 && Math.abs(angle) < 20) {
-        this.translateX = deltaX > 0 ? Math.min(deltaX, this.clientWidth) : Math.max(deltaX, -this.clientWidth);
-      }
+      this.translate = this.delta > 0 ? Math.min(this.delta, this.size) : Math.max(this.delta, -this.size);
     },
     handleTouchend() {
       this.slidering = false;
-      const percent = this.translateX / this.clientWidth;
+      const percent = this.translate / this.size;
 
       if (percent < -0.1) {
         this.next();
@@ -169,6 +182,7 @@ export default {
       }
 
       this.reset();
+      this.autoPlay();
     },
     handleTransitionend() {
       this.$emit('change', this.realIndex);
@@ -184,7 +198,6 @@ export default {
 
   &-wrapper
     font-size: 0
-    white-space: nowrap
     height: 100%
 
     & > div
