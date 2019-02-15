@@ -9,17 +9,22 @@
         :class="{ 'active':  tabIndex === index + 1 }"
       >{{tab}}</div>
 
-      <div class="scroll-bar" :style="{
+      <div
+        class="scroll-bar"
+        :style="{
         width: `${100 / tabs.length}%`,
+        'transition': `transform ${transition}ms`,
         transform: `translateX(${(((tabIndex - 1) - translate / titleWidth) / tabs.length) * titleWidth}px)`
-      }"></div>
+      }"
+      ></div>
     </div>
 
     <slider
       ref="slider"
-      @change="index => tabIndex = index"
+      @change="val => tabIndex = val"
       :initialIndex="3"
-      @translate="translate => this.translate = translate"
+      @slidering="val => slidering = val"
+      @translate="val => translate = val"
     >
       <slot></slot>
     </slider>
@@ -42,7 +47,9 @@ export default {
   data() {
     return {
       tabIndex: 1,
-      translate: 0
+      translate: 0,
+      titleWidth: 0,
+      transition: 0
     };
   },
   methods: {
@@ -52,6 +59,11 @@ export default {
   },
   mounted() {
     this.titleWidth = this.$refs.tabsTitle.clientWidth;
+
+    const time = 300;
+    setTimeout(() => {
+      this.transition = time;
+    }, time);
   }
 };
 </script>
@@ -69,15 +81,17 @@ $height = 45px
       flex: 1
       text-align: center
       line-height: $height
+      transition: color 300ms
 
       &.active
         color: $color-theme
 
     .scroll-bar
       absolute: bottom 0
-      transition: all 300ms
       height: 2px
       background: $color-theme
+      z-index: 1
+      border-radius: 2px
 
   .slider
     height: calc(100% - 45px)

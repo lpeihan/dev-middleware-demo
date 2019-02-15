@@ -58,7 +58,7 @@ export default {
       translate: 0,
       clientWidth: 0,
       clientHeight: 0,
-      slidering: false,
+      slidering: true,
       timer: null,
       length: 0
     };
@@ -102,6 +102,10 @@ export default {
       this.length = this.$refs.wrapper.children.length;
     });
 
+    setTimeout(() => {
+      this.slidering = false;
+    }, 300);
+
     this.index = this.initialIndex;
 
     if (this.loop) {
@@ -127,7 +131,6 @@ export default {
         this.correctIndex();
 
         this.$nextTick(() => {
-          this.slidering = false;
           this.next();
         });
       }, this.duration);
@@ -156,9 +159,11 @@ export default {
       }
     },
     next() {
+      this.slidering = false;
       this.index++;
     },
     prev() {
+      this.slidering = false;
       this.index--;
     },
     switch(index) {
@@ -199,7 +204,6 @@ export default {
       this.translate = this.delta > 0 ? Math.min(this.delta, this.size) : Math.max(this.delta, -this.size);
     },
     handleTouchend() {
-      this.slidering = false;
       const percent = this.translate / this.size;
 
       if (percent < -0.1) {
