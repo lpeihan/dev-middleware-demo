@@ -2,24 +2,16 @@
   <div class="login">
     <icon name="back" @click="back()"></icon>
     {{name}}
-    <slider class="slider-container">
-      <div>1</div>
-      <div>2</div>
-      <div>3</div>
-    </slider>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
-import Slider from '@/components/slider';
 
 export default {
+  name: 'login',
   computed: {
     ...mapGetters('user', ['name'])
-  },
-  components: {
-    Slider
   },
   methods: {
     back() {
@@ -31,8 +23,6 @@ export default {
 
 <style lang="stylus" scoped>
 .login
-  .slider-container
-    height: 200px
   .icon-back
     color: red
 </style>

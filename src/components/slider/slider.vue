@@ -31,15 +31,19 @@ export default {
     },
     loop: {
       type: Boolean,
-      default: true
+      default: false
     },
     vertical: {
       type: Boolean,
-      default: true
+      default: false
     },
     autoplay: {
       type: Boolean,
-      default: true
+      default: false
+    },
+    initialIndex: {
+      type: Number,
+      default: 1
     }
   },
   data() {
@@ -55,7 +59,8 @@ export default {
       clientWidth: 0,
       clientHeight: 0,
       slidering: false,
-      timer: null
+      timer: null,
+      length: 0
     };
   },
   computed: {
@@ -81,6 +86,14 @@ export default {
       return this.vertical ? this.clientHeight : this.clientWidth;
     }
   },
+  watch: {
+    translate(val) {
+      this.$emit('translate', val);
+    },
+    realIndex(val) {
+      this.$emit('change', this.realIndex);
+    }
+  },
   mounted() {
     this.resizeWidth();
     window.addEventListener('resize', this.resizeWidth);
@@ -89,8 +102,10 @@ export default {
       this.length = this.$refs.wrapper.children.length;
     });
 
+    this.index = this.initialIndex;
+
     if (this.loop) {
-      this.index = 2;
+      this.index = this.initialIndex + 1;
       this.initLoop();
     }
 
@@ -104,8 +119,17 @@ export default {
       clearInterval(this.timer);
     },
     autoPlay() {
+      if (this.autoplay === false) {
+        return;
+      }
       this.timer = setInterval(() => {
-        this.next();
+        this.slidering = true;
+        this.correctIndex();
+
+        this.$nextTick(() => {
+          this.slidering = false;
+          this.next();
+        });
       }, this.duration);
     },
     resizeWidth() {
@@ -136,6 +160,9 @@ export default {
     },
     prev() {
       this.index--;
+    },
+    switch(index) {
+      this.index = index;
     },
     reset() {
       this.startX = 0;
@@ -185,7 +212,7 @@ export default {
       this.autoPlay();
     },
     handleTransitionend() {
-      this.$emit('change', this.realIndex);
+      // this.$emit('change', this.realIndex);
     }
   }
 };
