@@ -215,7 +215,6 @@ export default {
     handleTransitionend() {
       this.correctIndex();
       this.slidering = true;
-      // this.$emit('change', this.realIndex);
     }
   }
 };

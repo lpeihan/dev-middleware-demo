@@ -58,15 +58,22 @@ export default {
   methods: {
     switchTab(index) {
       this.$refs.slider.switch(index);
+    },
+    setTitleWidth() {
+      this.titleWidth = this.$refs.tabsTitle.clientWidth;
     }
   },
   mounted() {
-    this.titleWidth = this.$refs.tabsTitle.clientWidth;
+    this.setTitleWidth();
+    window.addEventListener('resize', this.setTitleWidth);
 
     const time = 300;
     setTimeout(() => {
       this.transition = time;
     }, time);
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.setTitleWidth);
   }
 };
 </script>
