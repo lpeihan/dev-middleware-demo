@@ -22,8 +22,7 @@
     <slider
       ref="slider"
       @change="val => tabIndex = val"
-      :initialIndex="3"
-      @slidering="val => slidering = val"
+      :initialIndex="initialIndex"
       @translate="val => translate = val"
     >
       <slot></slot>
@@ -42,6 +41,10 @@ export default {
     tabs: {
       type: Array,
       default: () => []
+    },
+    initialIndex: {
+      type: Number,
+      default: 1
     }
   },
   data() {

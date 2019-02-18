@@ -1,12 +1,12 @@
 <template>
   <div class="home">
-    <slider v-if="banners.length" :autoplay="true" :loop="true">
+    <slider v-if="banners.length" autoplay loop>
       <div class="slider-item" v-for="(banner, index) in banners" :key="index">
         <img :src="banner.picUrl" width="100%" height="100%">
       </div>
     </slider>
 
-    <tabs :tabs="tabs">
+    <tabs :tabs="tabs" :initialIndex="2">
       <div>1</div>
       <div>2</div>
       <div>3</div>
