@@ -127,12 +127,7 @@ export default {
         return;
       }
       this.timer = setInterval(() => {
-        this.slidering = true;
-        this.correctIndex();
-
-        this.$nextTick(() => {
-          this.next();
-        });
+        this.next();
       }, this.duration);
     },
     resizeWidth() {
@@ -155,7 +150,7 @@ export default {
         this.index = 2;
       }
       if (this.index <= 1) {
-        this.index = this.length;
+        this.index = this.length - 1;
       }
     },
     next() {
@@ -167,6 +162,7 @@ export default {
       this.index--;
     },
     switch(index) {
+      this.slidering = false;
       this.index = index;
     },
     reset() {
@@ -204,6 +200,7 @@ export default {
       this.translate = this.delta > 0 ? Math.min(this.delta, this.size) : Math.max(this.delta, -this.size);
     },
     handleTouchend() {
+      this.slidering = false;
       const percent = this.translate / this.size;
 
       if (percent < -0.1) {
@@ -216,6 +213,8 @@ export default {
       this.autoPlay();
     },
     handleTransitionend() {
+      this.correctIndex();
+      this.slidering = true;
       // this.$emit('change', this.realIndex);
     }
   }
