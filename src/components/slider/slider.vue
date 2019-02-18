@@ -15,6 +15,19 @@
     >
       <slot></slot>
     </div>
+
+    <slot name="indicator">
+      <div class="indicator" v-if="length && showIndicator">
+        <div
+          class="indicator-item"
+          v-for="i in length"
+          :key="i"
+          :class="{
+        'active': index === i + 1
+      }"
+        ></div>
+      </div>
+    </slot>
   </div>
 </template>
 
@@ -44,6 +57,10 @@ export default {
     initialIndex: {
       type: Number,
       default: 1
+    },
+    showIndicator: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -70,7 +87,7 @@ export default {
           return this.length;
         }
 
-        if (this.index === this.length) {
+        if (this.index === this.length + 2) {
           return 1;
         }
 
@@ -91,16 +108,13 @@ export default {
       this.$emit('translate', val);
     },
     realIndex(val) {
-      this.$emit('change', this.realIndex);
+      this.$emit('change', val);
     }
   },
   mounted() {
     this.resizeWidth();
     window.addEventListener('resize', this.resizeWidth);
-
-    this.$nextTick(() => {
-      this.length = this.$refs.wrapper.children.length;
-    });
+    this.length = this.$refs.wrapper.children.length;
 
     setTimeout(() => {
       this.slidering = false;
@@ -146,11 +160,11 @@ export default {
         return;
       }
 
-      if (this.index >= this.length) {
+      if (this.index >= this.length + 2) {
         this.index = 2;
       }
       if (this.index <= 1) {
-        this.index = this.length - 1;
+        this.index = this.length + 1;
       }
     },
     next() {
@@ -233,4 +247,19 @@ export default {
       size: 100%
       display: inline-block
       font-size: $font-size-base
+
+  .indicator
+    absolute: left 0 right 0 bottom 12px
+    text-align: center
+
+    .indicator-item
+      display: inline-block
+      size: 7px
+      margin: 0 4px
+      background: $white
+      border-radius: 50%
+      transition: background 0.3s
+
+      &.active
+        background: $color-theme
 </style>

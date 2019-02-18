@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <slider v-if="banners.length" autoplay loop>
+    <slider v-if="banners.length" autoplay loop showIndicator>
       <div class="slider-item" v-for="(banner, index) in banners" :key="index">
         <img :src="banner.picUrl" width="100%" height="100%">
       </div>

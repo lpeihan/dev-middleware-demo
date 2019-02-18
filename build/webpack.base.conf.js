@@ -2,7 +2,7 @@
 
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const Webpackbar = require('webpackbar');
-const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
+// const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 
 const { resolve, cssLoader, assetsPath } = require('./utils');
 const { dir } = require('../config');
@@ -95,7 +95,7 @@ module.exports = {
   },
   plugins: [
     new Webpackbar(),
-    new VueLoaderPlugin(),
-    new HardSourceWebpackPlugin() // 加快第二次打包速度
+    new VueLoaderPlugin()
+    // new HardSourceWebpackPlugin() // 加快第二次打包速度
   ]
 };
