@@ -23,8 +23,8 @@
           v-for="i in length"
           :key="i"
           :class="{
-        'active': index === i + 1
-      }"
+            'active': realIndex === i
+          }"
         ></div>
       </div>
     </slot>
