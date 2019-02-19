@@ -7,16 +7,25 @@
     </slider>
 
     <tabs :tabs="tabs" :initialIndex="2">
-      <div>1</div>
+      <div>
+        <router-link to="/login">login</router-link>
+      </div>
       <div>2</div>
       <div>3</div>
     </tabs>
-    <router-link to="/login">login</router-link>
+
+    <div class="discs">
+      <div class="discs-list">
+        <div class="discs-item" v-for="disc in discs" :key="disc.id">
+          <img :src="disc.picUrl" class="disc-pic">
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import { getExample } from '@/api/example';
+import { getBanners, getDiscs } from '@/api/example';
 import Slider from '@/components/slider';
 import Tabs from '@/components/tabs';
 
@@ -29,25 +38,49 @@ export default {
   data() {
     return {
       banners: [],
+      discs: [],
       tabs: ['首页', '联系', '发现']
     };
   },
   methods: {
     async getBanners() {
-      this.banners = (await getExample()).banners;
+      this.banners = (await getBanners()).banners;
+    },
+    async getDiscs() {
+      this.discs = (await getDiscs()).result;
     }
   },
   mounted() {
     this.getBanners();
+    this.getDiscs();
   }
 };
 </script>
 
 <style lang="stylus" scoped>
 .home
+  height: 100%
+
   .slider
     height: 172px
 
   .tabs
-    height: 100px
+    height: 300px
+    border-bottom-1px()
+
+  .discs
+    font-size: 0
+
+    &-list
+      display: flex
+      flex-wrap: wrap
+
+    &-item
+      width: calc(33.33% - 8px)
+      margin-bottom: 6px
+      margin-left: 6px
+
+      .disc-pic
+        width: 100%
+        border-radius: 5px
 </style>

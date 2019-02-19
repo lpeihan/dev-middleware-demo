@@ -133,6 +133,9 @@ export default {
     window.removeEventListener('resize', this.resizeWidth);
   },
   methods: {
+    getAngle(startX, startY, endX, endY) {
+      return 360 * Math.atan((endY - startY) / (endX - startX)) / (2 * Math.PI);
+    },
     clear() {
       clearInterval(this.timer);
     },
@@ -208,6 +211,16 @@ export default {
       this.deltaY = this.endY - this.startY;
 
       if (this.loop === false && this.noSlider()) {
+        return;
+      }
+
+      const angle = this.getAngle(this.startX, this.startY, this.endX, this.endY);
+
+      if (this.vertical === false && (Math.abs(this.deltaX) < 6 || Math.abs(angle) > 30)) {
+        return;
+      }
+
+      if (this.vertical && (Math.abs(this.deltaX) < 6 || Math.abs(angle) < 30)) {
         return;
       }
 
