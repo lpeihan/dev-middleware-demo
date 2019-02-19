@@ -216,11 +216,11 @@ export default {
 
       const angle = this.getAngle(this.startX, this.startY, this.endX, this.endY);
 
-      if (this.vertical === false && (Math.abs(this.deltaX) < 6 || Math.abs(angle) > 30)) {
+      if (this.vertical === false && (Math.abs(this.deltaX) < 6 || Math.abs(angle) > 45)) {
         return;
       }
 
-      if (this.vertical && (Math.abs(this.deltaX) < 6 || Math.abs(angle) < 30)) {
+      if (this.vertical && (Math.abs(this.deltaX) < 6 || Math.abs(angle) < 45)) {
         return;
       }
 
