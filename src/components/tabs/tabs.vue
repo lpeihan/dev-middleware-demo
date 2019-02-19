@@ -92,6 +92,7 @@ $height = 45px
       text-align: center
       line-height: $height
       transition: color 300ms
+      btn-active()
 
       &.active
         color: $color-theme
