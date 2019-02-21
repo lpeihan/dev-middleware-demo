@@ -11,9 +11,7 @@ const request = axios.create({
 
 request.interceptors.request.use(
   config => {
-    if (config._loading) {
-      // loading
-    }
+    if (config._loading) {}
 
     return config;
   },
@@ -24,29 +22,21 @@ request.interceptors.request.use(
 
 request.interceptors.response.use(
   res => {
-    if (res.config._loading) {
-      // loading
-    }
+    if (res.config._loading) {}
 
     // success
     if (res.data.code === CODE_OK) {
       return res.data;
     }
 
-    if (res.config._toast) {
-      // toast
-    }
+    if (res.config._toast) {}
 
     return Promise.reject(res.data);
   },
   err => {
-    if (err.config._loading) {
-      // loading
-    }
+    if (err.config._loading) {}
 
-    if (err.config._toast) {
-      // toast
-    }
+    if (err.config._toast) {}
 
     // 请求超时处理
     if (err.code === 'ECONNABORTED' && err.message.indexOf('timeout') > -1) {
